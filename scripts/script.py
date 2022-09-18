@@ -19,6 +19,7 @@ cur = conn.cursor()
 if reset_table:
   cur.execute("DROP TABLE IF EXISTS public.data;")
   cur.execute("DROP TABLE IF EXISTS public.ingredients;")
+  cur.execute("DROP TABLE IF EXISTS public.user;")
 
 cur.execute("""CREATE TABLE IF NOT EXISTS public.data (
   id SERIAL PRIMARY KEY,
@@ -40,6 +41,12 @@ cur.execute("""CREATE TABLE IF NOT EXISTS public.data (
 cur.execute("""CREATE TABLE IF NOT EXISTS public.ingredients (
   id SERIAL PRIMARY KEY,
   ingredient TEXT
+);""")
+cur.execute("""CREATE TABLE IF NOT EXISTS public.user (
+  id SERIAL PRIMARY KEY,
+  username TEXT,
+  password TEXT,
+  email TEXT
 );""")
 #*----------------------------------------------------------------
 
