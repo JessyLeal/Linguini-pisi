@@ -1,5 +1,17 @@
-from packages import *
+import os, io
+import numpy as np # linear algebra
+import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 
+import seaborn as sns  # visualization tool
+import matplotlib
+import matplotlib.pyplot as plt
+import missingno as msno
+import streamlit as st
+
+from sklearn.impute import SimpleImputer
+import plotly.express as px 
+
+st.set_option('deprecation.showPyplotGlobalUse', False)
 st.title('Food Recipes Dataset Exploratory Data Analysis')
 
 tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(
@@ -39,7 +51,6 @@ with tab1:
     15. tags: Variável categórica ordinal, armazena as tags da receita. 
     16. category: Variável categórica ordinal, armazena a categoria da receita. 
     ''')
-
 
     st.subheader('1.2. Visualização dos dados')
     col1, col2 = st.columns(2)
