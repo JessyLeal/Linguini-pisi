@@ -19,3 +19,6 @@ import time
 
 import plotly.graph_objects as go
 st.set_option('deprecation.showPyplotGlobalUse', False)
+
+import nltk
+from nltk.corpus import stopwords
