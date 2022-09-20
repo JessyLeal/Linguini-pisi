@@ -8,4 +8,17 @@ import matplotlib.pyplot as plt
 import missingno as msno
 import streamlit as st
 
+from googletrans import Translator
+
+from sklearn.impute import SimpleImputer
+import plotly.express as px
+from sklearn.cluster import KMeans
+
+import sys
+import time
+
+import plotly.graph_objects as go
 st.set_option('deprecation.showPyplotGlobalUse', False)
+
+import nltk
+from nltk.corpus import stopwords
