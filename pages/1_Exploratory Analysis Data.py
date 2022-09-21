@@ -77,3 +77,52 @@ with tab1:
         plt.tight_layout()
         st.text(h)
         st.pyplot()
+with tab2:
+    st.header('2. Limpeza dos dados')
+    st.subheader("2.1. Visualização dos dados")
+    matrix = msno.matrix(df)
+    st.text(matrix)
+    st.pyplot();
+
+    # bar = msno.bar(df)
+    # st.text(bar)
+    # st.pyplot()
+
+    # heat = msno.heatmap(df)
+    # st.text(heat)
+    # st.pyplot()
+
+    # dendo = msno.dendrogram(df)
+    # st.text(dendo)
+    # st.pyplot()
+    st.dataframe(df.head(3))
+
+    cols_with_missing = [col for col in df.columns if df[col].isnull().any()]
+    # st.text(f"""{cols_with_missing}""")
+    st.subheader("2.2. Exclusão de linhas e colunas")
+    st.write("Excluir receitas duplicatas e linhas com valores nulos nas colunas de ingredientes, instruções, título de receita e dieta.")
+    df = df.dropna(subset=['ingredients','instructions', 'recipe_title', 'diet'])
+    df = df.drop(['url', 'record_health'], axis=1)
+    st.text(df.columns)
+    st.dataframe(df.head(3))
+
+    st.subheader("2.3. Tratamento do tipo das variáveis")
+    st.write('''
+    - Alterar o tipo das variáveis nas colunas de tempo de preparação e tempo de cozimento;
+    - Transformar strings nas colunas de ingredientes e tags para listas com várias strings;
+    - Formatação dos dados da coluna de instrução;
+    ''')
+
+    df['ingredients'] = df['ingredients'].apply(lambda x: x.split('|'))
+    df['instructions'] = df['instructions'].apply(lambda x: x.replace('|',''))
+    df['tags'] = df['tags'].apply(lambda x: x.split('|') if type(x)!= float else x)
+    df['prep_time']=df['prep_time'].apply(lambda x: int(x.replace('M', '')) if type(x)!= float else x)
+    df['cook_time'] = df['cook_time'].apply(lambda x: int(x.replace('M', '')) if type(x)!= float else x)
+
+    st.dataframe(df[['ingredients', 'instructions', 'tags', 'prep_time', 'cook_time']])
+    st.subheader("2.4. Tratamento de valores ausentes")
+
+    df['cook_time'].fillna(df['cook_time'].mean(), inplace = True)
+    df['prep_time'].fillna(df['prep_time'].mean(), inplace = True)
+
+    st.line_chart((df.isna().sum()))
