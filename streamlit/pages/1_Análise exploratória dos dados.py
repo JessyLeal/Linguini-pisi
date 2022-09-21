@@ -11,6 +11,19 @@ import streamlit as st
 from sklearn.impute import SimpleImputer
 import plotly.express as px 
 
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.compose import make_column_transformer
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+
+import nltk
+from nltk.corpus import stopwords
+nltk.download('stopwords')
+nltk.download('punkt')
+
 st.set_option('deprecation.showPyplotGlobalUse', False)
 st.title('Food Recipes Dataset Exploratory Data Analysis')
 
@@ -84,21 +97,9 @@ with tab2:
     st.text(matrix)
     st.pyplot();
 
-    # bar = msno.bar(df)
-    # st.text(bar)
-    # st.pyplot()
-
-    # heat = msno.heatmap(df)
-    # st.text(heat)
-    # st.pyplot()
-
-    # dendo = msno.dendrogram(df)
-    # st.text(dendo)
-    # st.pyplot()
     st.dataframe(df.head(3))
 
     cols_with_missing = [col for col in df.columns if df[col].isnull().any()]
-    # st.text(f"""{cols_with_missing}""")
     st.subheader("2.2. Exclusão de linhas e colunas")
     st.write("Excluir receitas duplicatas e linhas com valores nulos nas colunas de ingredientes, instruções, título de receita e dieta.")
     df = df.dropna(subset=['ingredients','instructions', 'recipe_title', 'diet'])
