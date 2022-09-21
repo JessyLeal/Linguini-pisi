@@ -29,7 +29,7 @@ with tab1:
     st.write('''
     O datase contêm 8009 linhas e 16 colunas, o dataset reune diversas informações relacionados a receita
     ''')
-    df = pd.read_csv("data/food_recipes.csv", ",")
+    df = pd.read_csv("data/data.csv", ",")
     st.dataframe(df.head())
     st.subheader('1.1. Análises do tipo das variáveis')
     st.text(df.columns)
